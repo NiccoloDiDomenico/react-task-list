@@ -85,7 +85,7 @@ function printCompletedTasks() {
   });
   // Restituisco gli elementi richiesti dall'array filtrato tramite map
   return completedTasks.map((curTask, index) => {
-    return (<li key={index}>{curTask.title} <br /> Priority: {curTask.priority} <br /> Est. time {curTask.estimatedTime}</li>)
+    return (<li key={index}>{curTask.title} <span className="states">{curTask.state}</span> <br /> Priority: {curTask.priority} <br /> Est. time {curTask.estimatedTime}</li>)
   });
 };
 
@@ -99,7 +99,7 @@ function printInProgressTasks() {
   });
   // Restituisco gli elementi richiesti dall'array filtrato tramite map
   return inProgressTasks.map((curTask, index) => {
-    return (<li key={index}>{curTask.title} <br /> Priority: {curTask.priority} <br /> Est. time {curTask.estimatedTime}</li>);
+    return (<li key={index}>{curTask.title} <span className="states">{curTask.state}</span> <br /> Priority: {curTask.priority} <br /> Est. time {curTask.estimatedTime}</li>);
   });
 };
 
@@ -113,6 +113,7 @@ function App() {
       <ul>
         {printInProgressTasks()}
       </ul>
+      <hr />
       <h2>Completed Task</h2>
       <ul>
         {printCompletedTasks()}

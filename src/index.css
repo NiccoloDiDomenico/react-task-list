@@ -1,0 +1,15 @@
+ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+li{
+    margin: 10px 0;
+}
+
+.states {
+    color: white;
+    background-color: orange;
+    padding: 5px;
+}
+
