@@ -1,125 +1,63 @@
-// Data
-const tasks = [
-  {
-    id: 1,
-    title: "Implementare la homepage",
-    priority: 1,
-    estimatedTime: 120,
-    state: "completed"
-  },
-  {
-    id: 2,
-    title: "Sviluppare il menu di navigazione",
-    priority: 2,
-    estimatedTime: 60,
-    state: "completed"
-  },
-  {
-    id: 3,
-    title: "Creare il footer del sito",
-    priority: 3,
-    estimatedTime: 30,
-    state: "completed"
-  },
-  {
-    id: 4,
-    title: "Ottimizzare le performance",
-    priority: 1,
-    estimatedTime: 180,
-    state: "completed"
-  },
-  {
-    id: 5,
-    title: "Scrivere test per i componenti",
-    priority: 2,
-    estimatedTime: 90,
-    state: "completed"
-  },
-  {
-    id: 6,
-    title: "Implementare la pagina dei contatti",
-    priority: 3,
-    estimatedTime: 60,
-    state: "completed"
-  },
-  {
-    id: 7,
-    title: "Aggiungere animazioni CSS",
-    priority: 2,
-    estimatedTime: 30,
-    state: "backlog"
-  },
-  {
-    id: 8,
-    title: "Integrare l'API di autenticazione",
-    priority: 1,
-    estimatedTime: 120,
-    state: "in_progress"
-  },
-  {
-    id: 9,
-    title: "Aggiornare la documentazione",
-    priority: 3,
-    estimatedTime: 60,
-    state: "backlog"
-  },
-  {
-    id: 10,
-    title: "Rifattorizzare il codice CSS",
-    priority: 2,
-    estimatedTime: 90,
-    state: "in_progress"
-  }
-];
+// Import
+import tasks from "./data/data.js"
 
-console.log(tasks);
+// Filtro l'array tasks per trovare gli stati completati
+const completedTasks = tasks.filter((curTask) => {
+  if (curTask.state === "completed") {
+    return curTask;
+  };
+});
+
+// Filtro l'array tasks per trovare gli stati da completare
+const inProgressTasks = tasks.filter((curTask) => {
+  if (curTask.state === "in_progress" || curTask.state === "backlog") {
+    return curTask;
+  };
+});
 
 
 // Functions
-function printCompletedTasks() {
-  // Filtro l'array tasks per trovare gli stati completati
-  const completedTasks = tasks.filter((curTask) => {
-    if (curTask.state === "completed") {
-      return curTask;
-    };
-  });
-  // Restituisco gli elementi richiesti dall'array filtrato tramite map
-  return completedTasks.map((curTask, index) => {
-    return (<li key={index}>{curTask.title} <span className="states">{curTask.state}</span> <br /> Priority: {curTask.priority} <br /> Est. time {curTask.estimatedTime}</li>)
-  });
+function printListTasks(arrayToCheck) {
+  return arrayToCheck.map((curElem) => (
+    <li key={curElem.id}>
+      <div>
+        <h4>
+          {curElem.title}
+        </h4>
+        <span className={`state ${curElem.state}`}>{curElem.state}</span>
+      </div>
+      <div>
+        <span className="details">Priority: {curElem.priority}</span>
+        <span className="details">Est. time {curElem.estimatedTime}</span>
+      </div>
+    </li>
+  ));
 };
-
-
-function printInProgressTasks() {
-  // Filtro l'array tasks per trovare gli stati in progresso o backlog
-  const inProgressTasks = tasks.filter((curTask) => {
-    if (curTask.state === "in_progress" || curTask.state === "backlog") {
-      return curTask;
-    };
-  });
-  // Restituisco gli elementi richiesti dall'array filtrato tramite map
-  return inProgressTasks.map((curTask, index) => {
-    return (<li key={index}>{curTask.title} <span className="states">{curTask.state}</span> <br /> Priority: {curTask.priority} <br /> Est. time {curTask.estimatedTime}</li>);
-  });
-};
-
 
 function App() {
 
   return (
     <>
-      <h1>Task manager</h1>
-      <h2>Current Task</h2>
-      <ul>
-        {printInProgressTasks()}
-      </ul>
-      <hr />
-      <h2>Completed Task</h2>
-      <ul>
-        {printCompletedTasks()}
-      </ul>
+      <header>
+        <h1>Task manager</h1>
+      </header>
+      <main>
+        <section>
+          <h2 className="task-title">Current Task</h2>
+          <ul>
+            {printListTasks(inProgressTasks)}
+          </ul>
+        </section>
+        <hr />
+        <section>
+          <h2 className="task-title">Completed Task</h2>
+          <ul>
+            {printListTasks(completedTasks)}
+          </ul>
+        </section>
+      </main>
     </>
-  )
-}
+  );
+};
 
 export default App
